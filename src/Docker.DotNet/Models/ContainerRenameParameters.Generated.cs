@@ -1,11 +1,10 @@
+namespace Docker.DotNet.Models;
+
 using System.Runtime.Serialization;
 
-namespace Docker.DotNet.Models
+[DataContract]
+public sealed class ContainerRenameParameters // (main.ContainerRenameParameters)
 {
-    [DataContract]
-    public class ContainerRenameParameters // (main.ContainerRenameParameters)
-    {
-        [QueryStringParameter("name", false)]
-        public string NewName { get; set; }
-    }
+    [QueryStringParameter("name", false)]
+    public string NewName { get; set; }
 }

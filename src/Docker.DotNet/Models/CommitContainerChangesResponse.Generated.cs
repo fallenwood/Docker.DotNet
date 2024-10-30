@@ -1,11 +1,10 @@
+namespace Docker.DotNet.Models;
+
 using System.Runtime.Serialization;
 
-namespace Docker.DotNet.Models
+[DataContract]
+public sealed class CommitContainerChangesResponse // (main.CommitContainerChangesResponse)
 {
-    [DataContract]
-    public class CommitContainerChangesResponse // (main.CommitContainerChangesResponse)
-    {
-        [DataMember(Name = "Id", EmitDefaultValue = false)]
-        public string ID { get; set; }
-    }
+    [DataMember(Name = "Id", EmitDefaultValue = false)]
+    public string ID { get; set; }
 }

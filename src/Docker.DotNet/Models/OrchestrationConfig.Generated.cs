@@ -1,11 +1,10 @@
+namespace Docker.DotNet.Models;
+
 using System.Runtime.Serialization;
 
-namespace Docker.DotNet.Models
+[DataContract]
+public sealed class OrchestrationConfig // (swarm.OrchestrationConfig)
 {
-    [DataContract]
-    public class OrchestrationConfig // (swarm.OrchestrationConfig)
-    {
-        [DataMember(Name = "TaskHistoryRetentionLimit", EmitDefaultValue = false)]
-        public long? TaskHistoryRetentionLimit { get; set; }
-    }
+    [DataMember(Name = "TaskHistoryRetentionLimit", EmitDefaultValue = false)]
+    public long? TaskHistoryRetentionLimit { get; set; }
 }

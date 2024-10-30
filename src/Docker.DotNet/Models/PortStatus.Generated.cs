@@ -1,12 +1,11 @@
+namespace Docker.DotNet.Models;
+
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace Docker.DotNet.Models
+[DataContract]
+public sealed class PortStatus // (swarm.PortStatus)
 {
-    [DataContract]
-    public class PortStatus // (swarm.PortStatus)
-    {
-        [DataMember(Name = "Ports", EmitDefaultValue = false)]
-        public IList<PortConfig> Ports { get; set; }
-    }
+    [DataMember(Name = "Ports", EmitDefaultValue = false)]
+    public IList<PortConfig> Ports { get; set; }
 }

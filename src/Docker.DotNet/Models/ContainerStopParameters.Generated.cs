@@ -1,11 +1,10 @@
+namespace Docker.DotNet.Models;
+
 using System.Runtime.Serialization;
 
-namespace Docker.DotNet.Models
+[DataContract]
+public sealed class ContainerStopParameters // (main.ContainerStopParameters)
 {
-    [DataContract]
-    public class ContainerStopParameters // (main.ContainerStopParameters)
-    {
-        [QueryStringParameter("t", false)]
-        public uint? WaitBeforeKillSeconds { get; set; }
-    }
+    [QueryStringParameter("t", false)]
+    public uint? WaitBeforeKillSeconds { get; set; }
 }

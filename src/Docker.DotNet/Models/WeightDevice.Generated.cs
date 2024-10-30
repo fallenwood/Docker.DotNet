@@ -1,14 +1,13 @@
+namespace Docker.DotNet.Models;
+
 using System.Runtime.Serialization;
 
-namespace Docker.DotNet.Models
+[DataContract]
+public sealed class WeightDevice // (blkiodev.WeightDevice)
 {
-    [DataContract]
-    public class WeightDevice // (blkiodev.WeightDevice)
-    {
-        [DataMember(Name = "Path", EmitDefaultValue = false)]
-        public string Path { get; set; }
+    [DataMember(Name = "Path", EmitDefaultValue = false)]
+    public string Path { get; set; }
 
-        [DataMember(Name = "Weight", EmitDefaultValue = false)]
-        public ushort Weight { get; set; }
-    }
+    [DataMember(Name = "Weight", EmitDefaultValue = false)]
+    public ushort Weight { get; set; }
 }

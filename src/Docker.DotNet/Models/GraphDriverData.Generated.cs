@@ -1,15 +1,14 @@
+namespace Docker.DotNet.Models;
+
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace Docker.DotNet.Models
+[DataContract]
+public sealed class GraphDriverData // (types.GraphDriverData)
 {
-    [DataContract]
-    public class GraphDriverData // (types.GraphDriverData)
-    {
-        [DataMember(Name = "Data", EmitDefaultValue = false)]
-        public IDictionary<string, string> Data { get; set; }
+    [DataMember(Name = "Data", EmitDefaultValue = false)]
+    public IDictionary<string, string> Data { get; set; }
 
-        [DataMember(Name = "Name", EmitDefaultValue = false)]
-        public string Name { get; set; }
-    }
+    [DataMember(Name = "Name", EmitDefaultValue = false)]
+    public string Name { get; set; }
 }

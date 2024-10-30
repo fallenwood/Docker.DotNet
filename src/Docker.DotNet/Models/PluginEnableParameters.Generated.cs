@@ -1,11 +1,10 @@
+namespace Docker.DotNet.Models;
+
 using System.Runtime.Serialization;
 
-namespace Docker.DotNet.Models
+[DataContract]
+public sealed class PluginEnableParameters // (main.PluginEnableParameters)
 {
-    [DataContract]
-    public class PluginEnableParameters // (main.PluginEnableParameters)
-    {
-        [QueryStringParameter("timeout", false)]
-        public long? Timeout { get; set; }
-    }
+    [QueryStringParameter("timeout", false)]
+    public long? Timeout { get; set; }
 }

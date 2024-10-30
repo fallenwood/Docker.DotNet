@@ -1,9 +1,8 @@
+namespace Docker.DotNet.Models;
+
 using System.Runtime.Serialization;
 
-namespace Docker.DotNet.Models
+[DataContract]
+public sealed class GlobalJob // (swarm.GlobalJob)
 {
-    [DataContract]
-    public class GlobalJob // (swarm.GlobalJob)
-    {
-    }
 }

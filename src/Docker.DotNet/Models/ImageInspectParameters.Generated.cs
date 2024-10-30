@@ -1,11 +1,10 @@
+namespace Docker.DotNet.Models;
+
 using System.Runtime.Serialization;
 
-namespace Docker.DotNet.Models
+[DataContract]
+public sealed class ImageInspectParameters // (main.ImageInspectParameters)
 {
-    [DataContract]
-    public class ImageInspectParameters // (main.ImageInspectParameters)
-    {
-        [QueryStringParameter("size", false, typeof(BoolQueryStringConverter))]
-        public bool? IncludeSize { get; set; }
-    }
+    [QueryStringParameter("size", false, typeof(BoolQueryStringConverter))]
+    public bool? IncludeSize { get; set; }
 }

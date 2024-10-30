@@ -1,18 +1,20 @@
+namespace Docker.DotNet.Models;
+
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace Docker.DotNet.Models
+[DataContract]
+public sealed class VolumeOptions // (mount.VolumeOptions)
 {
-    [DataContract]
-    public class VolumeOptions // (mount.VolumeOptions)
-    {
-        [DataMember(Name = "NoCopy", EmitDefaultValue = false)]
-        public bool NoCopy { get; set; }
+    [DataMember(Name = "NoCopy", EmitDefaultValue = false)]
+    public bool NoCopy { get; set; }
 
-        [DataMember(Name = "Labels", EmitDefaultValue = false)]
-        public IDictionary<string, string> Labels { get; set; }
+    [DataMember(Name = "Labels", EmitDefaultValue = false)]
+    public IDictionary<string, string> Labels { get; set; }
 
-        [DataMember(Name = "DriverConfig", EmitDefaultValue = false)]
-        public Driver DriverConfig { get; set; }
-    }
+    [DataMember(Name = "Subpath", EmitDefaultValue = false)]
+    public string Subpath { get; set; }
+
+    [DataMember(Name = "DriverConfig", EmitDefaultValue = false)]
+    public Driver DriverConfig { get; set; }
 }

@@ -1,11 +1,13 @@
+namespace Docker.DotNet.Models;
+
 using System.Runtime.Serialization;
 
-namespace Docker.DotNet.Models
+[DataContract]
+public sealed class ContainerRestartParameters // (main.ContainerRestartParameters)
 {
-    [DataContract]
-    public class ContainerRestartParameters // (main.ContainerRestartParameters)
-    {
-        [QueryStringParameter("t", false)]
-        public uint? WaitBeforeKillSeconds { get; set; }
-    }
+    [DataMember(Name = "Signal", EmitDefaultValue = false)]
+    public string Signal { get; set; }
+
+    [QueryStringParameter("t", false)]
+    public uint? WaitBeforeKillSeconds { get; set; }
 }

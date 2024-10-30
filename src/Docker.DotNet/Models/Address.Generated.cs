@@ -1,14 +1,13 @@
+namespace Docker.DotNet.Models;
+
 using System.Runtime.Serialization;
 
-namespace Docker.DotNet.Models
+[DataContract]
+public sealed class Address // (network.Address)
 {
-    [DataContract]
-    public class Address // (network.Address)
-    {
-        [DataMember(Name = "Addr", EmitDefaultValue = false)]
-        public string Addr { get; set; }
+    [DataMember(Name = "Addr", EmitDefaultValue = false)]
+    public string Addr { get; set; }
 
-        [DataMember(Name = "PrefixLen", EmitDefaultValue = false)]
-        public long PrefixLen { get; set; }
-    }
+    [DataMember(Name = "PrefixLen", EmitDefaultValue = false)]
+    public long PrefixLen { get; set; }
 }

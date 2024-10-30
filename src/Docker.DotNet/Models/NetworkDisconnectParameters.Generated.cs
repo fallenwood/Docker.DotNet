@@ -1,14 +1,13 @@
+namespace Docker.DotNet.Models;
+
 using System.Runtime.Serialization;
 
-namespace Docker.DotNet.Models
+[DataContract]
+public sealed class NetworkDisconnectParameters // (network.DisconnectOptions)
 {
-    [DataContract]
-    public class NetworkDisconnectParameters // (types.NetworkDisconnect)
-    {
-        [DataMember(Name = "Container", EmitDefaultValue = false)]
-        public string Container { get; set; }
+    [DataMember(Name = "Container", EmitDefaultValue = false)]
+    public string Container { get; set; }
 
-        [DataMember(Name = "Force", EmitDefaultValue = false)]
-        public bool Force { get; set; }
-    }
+    [DataMember(Name = "Force", EmitDefaultValue = false)]
+    public bool Force { get; set; }
 }

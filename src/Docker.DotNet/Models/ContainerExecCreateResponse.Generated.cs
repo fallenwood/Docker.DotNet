@@ -1,11 +1,10 @@
+namespace Docker.DotNet.Models;
+
 using System.Runtime.Serialization;
 
-namespace Docker.DotNet.Models
+[DataContract]
+public sealed class ContainerExecCreateResponse // (main.ContainerExecCreateResponse)
 {
-    [DataContract]
-    public class ContainerExecCreateResponse // (main.ContainerExecCreateResponse)
-    {
-        [DataMember(Name = "Id", EmitDefaultValue = false)]
-        public string ID { get; set; }
-    }
+    [DataMember(Name = "Id", EmitDefaultValue = false)]
+    public string ID { get; set; }
 }

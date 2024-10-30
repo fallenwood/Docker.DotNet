@@ -1,11 +1,10 @@
+namespace Docker.DotNet.Models;
+
 using System.Runtime.Serialization;
 
-namespace Docker.DotNet.Models
+[DataContract]
+public sealed class DispatcherConfig // (swarm.DispatcherConfig)
 {
-    [DataContract]
-    public class DispatcherConfig // (swarm.DispatcherConfig)
-    {
-        [DataMember(Name = "HeartbeatPeriod", EmitDefaultValue = false)]
-        public long HeartbeatPeriod { get; set; }
-    }
+    [DataMember(Name = "HeartbeatPeriod", EmitDefaultValue = false)]
+    public long HeartbeatPeriod { get; set; }
 }

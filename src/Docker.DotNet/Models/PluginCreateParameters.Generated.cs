@@ -1,11 +1,10 @@
+namespace Docker.DotNet.Models;
+
 using System.Runtime.Serialization;
 
-namespace Docker.DotNet.Models
+[DataContract]
+public sealed class PluginCreateParameters // (main.PluginCreateParameters)
 {
-    [DataContract]
-    public class PluginCreateParameters // (main.PluginCreateParameters)
-    {
-        [QueryStringParameter("name", true)]
-        public string Name { get; set; }
-    }
+    [QueryStringParameter("name", true)]
+    public string Name { get; set; }
 }

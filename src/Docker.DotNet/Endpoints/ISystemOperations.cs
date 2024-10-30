@@ -45,20 +45,6 @@ namespace Docker.DotNet
         Task PingAsync(CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
-        /// Get system information.
-        /// </summary>
-        /// <remarks>
-        /// docker info
-        ///
-        /// 200 - No error.
-        /// 500 - Server error.
-        /// </remarks>
-        Task<SystemInfoResponse> GetSystemInfoAsync(CancellationToken cancellationToken = default(CancellationToken));
-
-        [Obsolete("Use 'Task MonitorEventsAsync(ContainerEventsParameters parameters, CancellationToken cancellationToken, IProgress<JSONMessage> progress)'")]
-        Task<Stream> MonitorEventsAsync(ContainerEventsParameters parameters, CancellationToken cancellationToken);
-
-        /// <summary>
         /// Monitor events.
         /// 
         /// Stream real-time events from the server.

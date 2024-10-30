@@ -1,14 +1,13 @@
+namespace Docker.DotNet.Models;
+
 using System.Runtime.Serialization;
 
-namespace Docker.DotNet.Models
+[DataContract]
+public sealed class NetworkConnectParameters // (network.ConnectOptions)
 {
-    [DataContract]
-    public class NetworkConnectParameters // (types.NetworkConnect)
-    {
-        [DataMember(Name = "Container", EmitDefaultValue = false)]
-        public string Container { get; set; }
+    [DataMember(Name = "Container", EmitDefaultValue = false)]
+    public string Container { get; set; }
 
-        [DataMember(Name = "EndpointConfig", EmitDefaultValue = false)]
-        public EndpointSettings EndpointConfig { get; set; }
-    }
+    [DataMember(Name = "EndpointConfig", EmitDefaultValue = false)]
+    public EndpointSettings EndpointConfig { get; set; }
 }

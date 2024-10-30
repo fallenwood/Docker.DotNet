@@ -34,7 +34,7 @@ var typesToDisambiguate = map[string]*CSModelType{
 			CSProperty{
 				Name:       "StopTimeout",
 				Type:       CSType{"System", "TimeSpan", true},
-				Attributes: []CSAttribute{CSAttribute{Type: CSType{"Newtonsoft.Json", "JsonConverter", false}, Arguments: []CSArgument{{Value: "typeof(TimeSpanSecondsConverter)"}}}},
+				Attributes: []CSAttribute{CSAttribute{Type: CSType{"System.Text.Json.Serialization", "JsonConverter", false}, Arguments: []CSArgument{{Value: "typeof(TimeSpanSecondsConverter)"}}}},
 			},
 		},
 	},
@@ -44,12 +44,12 @@ var typesToDisambiguate = map[string]*CSModelType{
 			CSProperty{
 				Name:       "Interval",
 				Type:       CSType{"System", "TimeSpan", true},
-				Attributes: []CSAttribute{CSAttribute{Type: CSType{"Newtonsoft.Json", "JsonConverter", false}, Arguments: []CSArgument{{Value: "typeof(TimeSpanNanosecondsConverter)"}}}},
+				Attributes: []CSAttribute{CSAttribute{Type: CSType{"System.Text.Json.Serialization", "JsonConverter", false}, Arguments: []CSArgument{{Value: "typeof(TimeSpanNanosecondsConverter)"}}}},
 			},
 			CSProperty{
 				Name:       "Timeout",
 				Type:       CSType{"System", "TimeSpan", true},
-				Attributes: []CSAttribute{CSAttribute{Type: CSType{"Newtonsoft.Json", "JsonConverter", false}, Arguments: []CSArgument{{Value: "typeof(TimeSpanNanosecondsConverter)"}}}},
+				Attributes: []CSAttribute{CSAttribute{Type: CSType{"System.Text.Json.Serialization", "JsonConverter", false}, Arguments: []CSArgument{{Value: "typeof(TimeSpanNanosecondsConverter)"}}}},
 			},
 		},
 	},
@@ -67,7 +67,7 @@ var typesToDisambiguate = map[string]*CSModelType{
 			CSProperty{
 				Name:       "StopTimeout",
 				Type:       CSType{"System", "TimeSpan", true},
-				Attributes: []CSAttribute{CSAttribute{Type: CSType{"Newtonsoft.Json", "JsonConverter", false}, Arguments: []CSArgument{{Value: "typeof(TimeSpanSecondsConverter)"}}}},
+				Attributes: []CSAttribute{CSAttribute{Type: CSType{"System.Text.Json.Serialization", "JsonConverter", false}, Arguments: []CSArgument{{Value: "typeof(TimeSpanSecondsConverter)"}}}},
 			},
 		},
 	},
@@ -122,10 +122,10 @@ var typesToDisambiguate = map[string]*CSModelType{
 			CSProperty{Name: "Created", Type: CSType{"System", "DateTime", false}},
 		},
 	},
-	typeToKey(reflect.TypeOf(types.ContainerPathStat{})):       {Name: "ContainerPathStatResponse"},
-	typeToKey(reflect.TypeOf(container.ContainerTopOKBody{})):  {Name: "ContainerProcessesResponse"},
-	typeToKey(reflect.TypeOf(types.ContainersPruneReport{})):   {Name: "ContainersPruneResponse"},
-	typeToKey(reflect.TypeOf(types.ImageDeleteResponseItem{})): {Name: "ImageDeleteResponse"},
+	typeToKey(reflect.TypeOf(types.ContainerPathStat{})):      {Name: "ContainerPathStatResponse"},
+	typeToKey(reflect.TypeOf(container.ContainerTopOKBody{})): {Name: "ContainerProcessesResponse"},
+	typeToKey(reflect.TypeOf(types.ContainersPruneReport{})):  {Name: "ContainersPruneResponse"},
+	// typeToKey(reflect.TypeOf(types.ImageDeleteResponseItem{})): {Name: "ImageDeleteResponse"},
 	typeToKey(reflect.TypeOf(image.HistoryResponseItem{})): {
 		Name: "ImageHistoryResponse",
 		Properties: []CSProperty{
@@ -140,13 +140,13 @@ var typesToDisambiguate = map[string]*CSModelType{
 	},
 	typeToKey(reflect.TypeOf(types.ImageLoadResponse{})): {Name: "ImagesLoadResponse"},
 	typeToKey(reflect.TypeOf(types.ImagesPruneReport{})): {Name: "ImagesPruneResponse"},
-	typeToKey(reflect.TypeOf(types.ImageSummary{})): {
-		Name: "ImagesListResponse",
-		Properties: []CSProperty{
-			CSProperty{Name: "Created", Type: CSType{"System", "DateTime", false}},
-		},
-	},
-	typeToKey(reflect.TypeOf(types.Info{})):                  {Name: "SystemInfoResponse"},
+	// typeToKey(reflect.TypeOf(types.ImageSummary{})): {
+	// 	Name: "ImagesListResponse",
+	// 	Properties: []CSProperty{
+	// 		CSProperty{Name: "Created", Type: CSType{"System", "DateTime", false}},
+	// 	},
+	// },
+	// typeToKey(reflect.TypeOf(types.Info{})):                  {Name: "SystemInfoResponse"},
 	typeToKey(reflect.TypeOf(types.NetworkConnect{})):        {Name: "NetworkConnectParameters"},
 	typeToKey(reflect.TypeOf(types.NetworkCreateRequest{})):  {Name: "NetworksCreateParameters"},
 	typeToKey(reflect.TypeOf(types.NetworkCreateResponse{})): {Name: "NetworksCreateResponse"},
@@ -279,8 +279,8 @@ var dockerTypesToReflect = []reflect.Type{
 	// TODO: stream
 
 	// GET /images/json
-	reflect.TypeOf(ImagesListParameters{}),
-	reflect.TypeOf(types.ImageSummary{}),
+	// reflect.TypeOf(ImagesListParameters{}),
+	// reflect.TypeOf(types.ImageSummary{}),
 
 	// POST /images/load
 	// TODO: headers: application/x-tar body.
@@ -297,7 +297,7 @@ var dockerTypesToReflect = []reflect.Type{
 
 	// DELETE /images/(id)
 	reflect.TypeOf(ImageDeleteParameters{}),
-	reflect.TypeOf(types.ImageDeleteResponseItem{}),
+	// reflect.TypeOf(types.ImageDeleteResponseItem{}),
 
 	// GET /images/(id)/history
 	reflect.TypeOf(image.HistoryResponseItem{}),
@@ -313,8 +313,8 @@ var dockerTypesToReflect = []reflect.Type{
 	reflect.TypeOf(ImageTagParameters{}),
 
 	// GET /info
-	reflect.TypeOf(types.Info{}),
-	reflect.TypeOf(registry.ServiceConfig{}),
+	// reflect.TypeOf(types.Info{}),
+	// reflect.TypeOf(registry.ServiceConfig{}),
 
 	// GET /networks
 	reflect.TypeOf(NetworksListParameters{}),
@@ -456,11 +456,11 @@ var dockerTypesToReflect = []reflect.Type{
 
 	// POST /services/create
 	reflect.TypeOf(ServiceCreateParameters{}),
-	reflect.TypeOf(types.ServiceCreateResponse{}),
+	// reflect.TypeOf(types.ServiceCreateResponse{}),
 
 	// POST /services/(id)/update
 	reflect.TypeOf(ServiceUpdateParameters{}),
-	reflect.TypeOf(types.ServiceUpdateResponse{}),
+	// reflect.TypeOf(types.ServiceUpdateResponse{}),
 
 	// DELETE /services/(id)
 
@@ -632,8 +632,12 @@ func reflectTypeMembers(t reflect.Type, m *CSModelType) {
 				a := CSAttribute{Type: CSType{"", "DataMember", false}}
 				a.NamedArguments = append(a.NamedArguments, CSNamedArgument{"Name", CSArgument{jsonName, CSInboxTypesMap[reflect.String]}})
 				a.NamedArguments = append(a.NamedArguments, CSNamedArgument{"EmitDefaultValue", CSArgument{strconv.FormatBool(false), CSInboxTypesMap[reflect.Bool]}})
+
+				// stj := CSAttribute{Type: CSType{"", "JsonPropertyName", false}}
+				// stj.Arguments = append(stj.Arguments, CSArgument{jsonName, CSInboxTypesMap[reflect.String]})
 				csProp.IsOpt = f.Type.Kind() == reflect.Ptr
 				csProp.Attributes = append(csProp.Attributes, a)
+				// csProp.Attributes = append(csProp.Attributes, stj)
 			}
 
 			if hasTypeCustomizations {
@@ -746,4 +750,16 @@ func main() {
 		f.Close()
 		os.Rename(f.Name(), path.Join(sourcePath, v.Name+".Generated.cs"))
 	}
+
+	filename := "DockerJsonSerializerContext"
+	f, err := os.CreateTemp(sourcePath, filename)
+	if err != nil {
+		panic(err)
+	}
+
+	WriteSourceGenerationContext(f, filename, reflectedTypes)
+
+	f.Close()
+
+	os.Rename(f.Name(), path.Join(sourcePath, filename+".Generated.cs"))
 }

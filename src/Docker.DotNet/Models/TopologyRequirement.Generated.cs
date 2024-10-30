@@ -1,15 +1,14 @@
+namespace Docker.DotNet.Models;
+
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace Docker.DotNet.Models
+[DataContract]
+public sealed class TopologyRequirement // (volume.TopologyRequirement)
 {
-    [DataContract]
-    public class TopologyRequirement // (volume.TopologyRequirement)
-    {
-        [DataMember(Name = "Requisite", EmitDefaultValue = false)]
-        public IList<VolumeTopology> Requisite { get; set; }
+    [DataMember(Name = "Requisite", EmitDefaultValue = false)]
+    public IList<VolumeTopology> Requisite { get; set; }
 
-        [DataMember(Name = "Preferred", EmitDefaultValue = false)]
-        public IList<VolumeTopology> Preferred { get; set; }
-    }
+    [DataMember(Name = "Preferred", EmitDefaultValue = false)]
+    public IList<VolumeTopology> Preferred { get; set; }
 }

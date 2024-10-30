@@ -132,6 +132,7 @@ type ContainerResizeParameters struct {
 
 // ContainerRestartParameters for POST /containers/(id)/restart
 type ContainerRestartParameters struct {
+	Signal string `rest:"signal"`
 	WaitBeforeKillSeconds uint32 `rest:"query,t"`
 }
 

@@ -1,18 +1,17 @@
+namespace Docker.DotNet.Models;
+
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace Docker.DotNet.Models
+[DataContract]
+public sealed class PluginUpgradeParameters // (main.PluginUpgradeParameters)
 {
-    [DataContract]
-    public class PluginUpgradeParameters // (main.PluginUpgradeParameters)
-    {
-        [QueryStringParameter("remote", true)]
-        public string Remote { get; set; }
+    [QueryStringParameter("remote", true)]
+    public string Remote { get; set; }
 
-        [DataMember(Name = "RegistryAuth", EmitDefaultValue = false)]
-        public AuthConfig RegistryAuth { get; set; }
+    [DataMember(Name = "RegistryAuth", EmitDefaultValue = false)]
+    public AuthConfig RegistryAuth { get; set; }
 
-        [DataMember(Name = "Privileges", EmitDefaultValue = false)]
-        public IList<PluginPrivilege> Privileges { get; set; }
-    }
+    [DataMember(Name = "Privileges", EmitDefaultValue = false)]
+    public IList<PluginPrivilege> Privileges { get; set; }
 }

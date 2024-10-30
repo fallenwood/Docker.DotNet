@@ -1,11 +1,10 @@
+namespace Docker.DotNet.Models;
+
 using System.Runtime.Serialization;
 
-namespace Docker.DotNet.Models
+[DataContract]
+public sealed class TaskDefaults // (swarm.TaskDefaults)
 {
-    [DataContract]
-    public class TaskDefaults // (swarm.TaskDefaults)
-    {
-        [DataMember(Name = "LogDriver", EmitDefaultValue = false)]
-        public SwarmDriver LogDriver { get; set; }
-    }
+    [DataMember(Name = "LogDriver", EmitDefaultValue = false)]
+    public SwarmDriver LogDriver { get; set; }
 }

@@ -1,11 +1,10 @@
+namespace Docker.DotNet.Models;
+
 using System.Runtime.Serialization;
 
-namespace Docker.DotNet.Models
+[DataContract]
+public sealed class ContainerStartParameters // (main.ContainerStartParameters)
 {
-    [DataContract]
-    public class ContainerStartParameters // (main.ContainerStartParameters)
-    {
-        [QueryStringParameter("detachKeys", false)]
-        public string DetachKeys { get; set; }
-    }
+    [QueryStringParameter("detachKeys", false)]
+    public string DetachKeys { get; set; }
 }

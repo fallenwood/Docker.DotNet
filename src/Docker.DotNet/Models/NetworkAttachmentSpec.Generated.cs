@@ -1,11 +1,10 @@
+namespace Docker.DotNet.Models;
+
 using System.Runtime.Serialization;
 
-namespace Docker.DotNet.Models
+[DataContract]
+public sealed class NetworkAttachmentSpec // (swarm.NetworkAttachmentSpec)
 {
-    [DataContract]
-    public class NetworkAttachmentSpec // (swarm.NetworkAttachmentSpec)
-    {
-        [DataMember(Name = "ContainerID", EmitDefaultValue = false)]
-        public string ContainerID { get; set; }
-    }
+    [DataMember(Name = "ContainerID", EmitDefaultValue = false)]
+    public string ContainerID { get; set; }
 }

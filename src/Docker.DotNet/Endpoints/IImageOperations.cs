@@ -10,19 +10,6 @@ namespace Docker.DotNet
     public interface IImageOperations
     {
         /// <summary>
-        /// Retrieves a list of the images on the server.
-        /// </summary>
-        /// <param name="parameters">Specifics of how to perform the operation.</param>
-        /// <param name="cancellationToken">When triggered, the operation will stop at the next available time, if possible.</param>
-        /// <remarks>
-        /// The equivalent commands in the Docker CLI are <c>docker images</c> and <c>docker image ls</c>.
-        /// </remarks>
-        /// <exception cref="ArgumentNullException">One or more of the inputs was <see langword="null"/>.</exception>
-        /// <exception cref="DockerApiException">The input is invalid or the daemon experienced an error.</exception>
-        /// <exception cref="HttpRequestException">The request failed due to an underlying issue such as network connectivity, DNS failure, server certificate validation or timeout.</exception>
-        Task<IList<ImagesListResponse>> ListImagesAsync(ImagesListParameters parameters, CancellationToken cancellationToken = default(CancellationToken));
-
-        /// <summary>
         /// Builds an image from a tar archive that contains a Dockerfile.
         /// </summary>
         /// <param name="contents">A readable tar stream of file contents for the build.</param>

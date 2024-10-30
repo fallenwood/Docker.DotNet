@@ -1,14 +1,13 @@
+namespace Docker.DotNet.Models;
+
 using System.Runtime.Serialization;
 
-namespace Docker.DotNet.Models
+[DataContract]
+public sealed class UsageData // (volume.UsageData)
 {
-    [DataContract]
-    public class UsageData // (volume.UsageData)
-    {
-        [DataMember(Name = "RefCount", EmitDefaultValue = false)]
-        public long RefCount { get; set; }
+    [DataMember(Name = "RefCount", EmitDefaultValue = false)]
+    public long RefCount { get; set; }
 
-        [DataMember(Name = "Size", EmitDefaultValue = false)]
-        public long Size { get; set; }
-    }
+    [DataMember(Name = "Size", EmitDefaultValue = false)]
+    public long Size { get; set; }
 }

@@ -1,14 +1,13 @@
+namespace Docker.DotNet.Models;
+
 using System.Runtime.Serialization;
 
-namespace Docker.DotNet.Models
+[DataContract]
+public sealed class PluginConfigUser // (types.PluginConfigUser)
 {
-    [DataContract]
-    public class PluginConfigUser // (types.PluginConfigUser)
-    {
-        [DataMember(Name = "GID", EmitDefaultValue = false)]
-        public uint GID { get; set; }
+    [DataMember(Name = "GID", EmitDefaultValue = false)]
+    public uint GID { get; set; }
 
-        [DataMember(Name = "UID", EmitDefaultValue = false)]
-        public uint UID { get; set; }
-    }
+    [DataMember(Name = "UID", EmitDefaultValue = false)]
+    public uint UID { get; set; }
 }

@@ -1,12 +1,11 @@
+namespace Docker.DotNet.Models;
+
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace Docker.DotNet.Models
+[DataContract]
+public sealed class NetworksPruneResponse // (network.PruneReport)
 {
-    [DataContract]
-    public class NetworksPruneResponse // (types.NetworksPruneReport)
-    {
-        [DataMember(Name = "NetworksDeleted", EmitDefaultValue = false)]
-        public IList<string> NetworksDeleted { get; set; }
-    }
+    [DataMember(Name = "NetworksDeleted", EmitDefaultValue = false)]
+    public IList<string> NetworksDeleted { get; set; }
 }

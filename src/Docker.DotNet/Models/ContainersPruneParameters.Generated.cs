@@ -1,12 +1,11 @@
+namespace Docker.DotNet.Models;
+
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace Docker.DotNet.Models
+[DataContract]
+public sealed class ContainersPruneParameters // (main.ContainersPruneParameters)
 {
-    [DataContract]
-    public class ContainersPruneParameters // (main.ContainersPruneParameters)
-    {
-        [QueryStringParameter("filters", false, typeof(MapQueryStringConverter))]
-        public IDictionary<string, IDictionary<string, bool>> Filters { get; set; }
-    }
+    [QueryStringParameter("filters", false, typeof(MapQueryStringConverter))]
+    public IDictionary<string, IDictionary<string, bool>> Filters { get; set; }
 }

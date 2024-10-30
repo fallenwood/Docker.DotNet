@@ -1,30 +1,25 @@
 ﻿using System;
-using Newtonsoft.Json;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
-namespace Docker.DotNet
+namespace Docker.DotNet;
+
+internal class JsonVersionConverter : JsonConverter<Version>
 {
-    internal class JsonVersionConverter : JsonConverter
+    public override Version Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        public override void WriteJson(JsonWriter writer, object value, Newtonsoft.Json.JsonSerializer serializer)
+        var strVal = reader.GetString();
+        if (strVal == null)
         {
-            throw new NotImplementedException();
+            var valueType = "<null>";
+            throw new InvalidOperationException($"Cannot deserialize value of type '{valueType}' to 'Version' ");
         }
 
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, Newtonsoft.Json.JsonSerializer serializer)
-        {
-            var strVal = reader.Value as string;
-            if (strVal == null)
-            {
-                var valueType = reader.Value == null ? "<null>" : reader.Value.GetType().FullName;
-                throw new InvalidOperationException($"Cannot deserialize value of type '{valueType}' to '{objectType.FullName}' ");
-            }
+        return Version.Parse(strVal);
+    }
 
-            return Version.Parse(strVal);
-        }
-
-        public override bool CanConvert(Type objectType)
-        {
-            return objectType == typeof (Version);
-        }
+    public override void Write(Utf8JsonWriter writer, Version value, JsonSerializerOptions options)
+    {
+        throw new NotImplementedException();
     }
 }

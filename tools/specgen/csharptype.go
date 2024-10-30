@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"reflect"
+	"slices"
 	"sort"
 	"strings"
 	"time"
@@ -169,18 +170,16 @@ func NewModel(name, sourceName string) *CSModelType {
 // Write the specific model type to the io writer given.
 func (t *CSModelType) Write(w io.Writer) {
 	usings := calcUsings(t)
+
+	fmt.Fprintln(w, "namespace Docker.DotNet.Models;")
+	fmt.Fprintln(w, "")
+
 	for _, u := range usings {
 		fmt.Fprintf(w, "using %s;\n", u)
 	}
-
 	fmt.Fprintln(w, "")
 
-	fmt.Fprintln(w, "namespace Docker.DotNet.Models")
-	fmt.Fprintln(w, "{")
-
 	writeClass(w, t)
-
-	fmt.Fprintln(w, "}")
 }
 
 func calcUsings(t *CSModelType) []string {
@@ -232,11 +231,11 @@ func safeAddUsing(using string, usings []string, added map[string]bool) []string
 
 func writeClass(w io.Writer, t *CSModelType) {
 	for _, a := range t.Attributes {
-		fmt.Fprintf(w, "    %s\n", a)
+		fmt.Fprintf(w, "%s\n", a)
 	}
 
-	fmt.Fprintf(w, "    public class %s // (%s)\n", t.Name, t.SourceName)
-	fmt.Fprintln(w, "    {")
+	fmt.Fprintf(w, "public sealed class %s // (%s)\n", t.Name, t.SourceName)
+	fmt.Fprintln(w, "{")
 
 	if len(t.Constructors) > 0 {
 		writeConstructors(w, t.Name, t.Constructors)
@@ -250,13 +249,13 @@ func writeClass(w io.Writer, t *CSModelType) {
 		writeProperties(w, t.Properties)
 	}
 
-	fmt.Fprintln(w, "    }")
+	fmt.Fprintln(w, "}")
 }
 
 func writeConstructors(w io.Writer, typeName string, constructors []CSConstructor) {
 	l := len(constructors)
 	for i, c := range constructors {
-		fmt.Fprintf(w, "        public %s(", typeName)
+		fmt.Fprintf(w, "    public %s(", typeName)
 
 		plen := len(c.Parameters)
 		for pi, p := range c.Parameters {
@@ -268,20 +267,20 @@ func writeConstructors(w io.Writer, typeName string, constructors []CSConstructo
 		}
 
 		fmt.Fprintf(w, ")\n")
-		fmt.Fprintln(w, "        {")
+		fmt.Fprintln(w, "    {")
 
 		// If we had parameters we need to handle the copy of the data for the structs.
 		if plen > 0 {
 			for pi, p := range c.Parameters {
-				fmt.Fprintf(w, "            if (%s != null)\n", p.Name)
-				fmt.Fprintln(w, "            {")
+				fmt.Fprintf(w, "        if (%s != null)\n", p.Name)
+				fmt.Fprintln(w, "        {")
 
 				// Assign each of the types.
 				for _, elem := range p.Type.Properties {
-					fmt.Fprintf(w, "                this.%s = %s.%s;\n", elem.Name, p.Name, elem.Name)
+					fmt.Fprintf(w, "            this.%s = %s.%s;\n", elem.Name, p.Name, elem.Name)
 				}
 
-				fmt.Fprintln(w, "            }")
+				fmt.Fprintln(w, "        }")
 
 				if pi != plen-1 {
 					fmt.Fprintln(w, "")
@@ -289,7 +288,7 @@ func writeConstructors(w io.Writer, typeName string, constructors []CSConstructo
 			}
 		}
 
-		fmt.Fprintln(w, "        }")
+		fmt.Fprintln(w, "    }")
 		if i != l-1 {
 			fmt.Fprintln(w, "")
 		}
@@ -300,13 +299,13 @@ func writeProperties(w io.Writer, properties []CSProperty) {
 	len := len(properties)
 	for i, p := range properties {
 		for _, a := range p.Attributes {
-			fmt.Fprintf(w, "        %s\n", a)
+			fmt.Fprintf(w, "    %s\n", a)
 		}
 
 		if p.Type.IsNullable && p.IsOpt {
-			fmt.Fprintf(w, "        public %s? %s { get; set; }", p.Type.Name, p.Name)
+			fmt.Fprintf(w, "    public %s? %s { get; set; }", p.Type.Name, p.Name)
 		} else {
-			fmt.Fprintf(w, "        public %s %s { get; set; }", p.Type.Name, p.Name)
+			fmt.Fprintf(w, "    public %s %s { get; set; }", p.Type.Name, p.Name)
 		}
 
 		if p.DefaultValue != "" {
@@ -319,4 +318,72 @@ func writeProperties(w io.Writer, properties []CSProperty) {
 			fmt.Fprintln(w, "")
 		}
 	}
+}
+
+func WriteSourceGenerationContext(w io.Writer, className string, t map[string]*CSModelType) {
+	usings := []string{
+		"System.Text.Json",
+		"System.Text.Json.Serialization",
+		"System.Collections.Generic",
+	}
+
+	arrays := []string{
+		"NodeListResponse",
+		"SwarmService",
+		"Plugin",
+		"PluginPrivilege",
+		"NetworkResponse",
+		"ImageHistoryResponse",
+		"ImageSearchResponse",
+		"ContainerListResponse",
+		"ContainerFileSystemChangeResponse",
+	}
+
+	lists := []string{
+		"TaskResponse",
+		"Secret",
+		"PluginPrivilege",
+		"SwarmConfig",
+		"ContainerListResponse",
+		"ContainerFileSystemChangeResponse",
+		"ImageSearchResponse",
+	}
+
+	dicts := []string{
+		"AuthConfig",
+	}
+
+	fmt.Fprintln(w, "namespace Docker.DotNet.Models;")
+	fmt.Fprintln(w, "")
+
+	for _, u := range usings {
+		fmt.Fprintf(w, "using %s;\n", u)
+	}
+	fmt.Fprintln(w, "")
+
+	fmt.Fprintln(w, "[JsonSerializable(typeof(IList<string>))]")
+	fmt.Fprintln(w, "[JsonSerializable(typeof(Dictionary<string, string>[]))]")
+
+	for _, v := range reflectedTypes {
+		if slices.Contains(arrays, v.Name) {
+			fmt.Fprintf(w, "[JsonSerializable(typeof(%s[]))]", v.Name)
+		}
+
+		if slices.Contains(lists, v.Name) {
+			fmt.Fprintf(w, "[JsonSerializable(typeof(IList<%s>))]", v.Name)
+		}
+
+		if slices.Contains(dicts, v.Name) {
+			fmt.Fprintf(w, "[JsonSerializable(typeof(Dictionary<string, %s>))]", v.Name)
+		}
+
+		fmt.Fprintf(w, "[JsonSerializable(typeof(%s))]", v.Name)
+
+		fmt.Fprintln(w)
+	}
+
+	fmt.Fprintf(w, "public sealed partial class %s : JsonSerializerContext", className)
+	fmt.Fprintln(w)
+	fmt.Fprintln(w, "{")
+	fmt.Fprintln(w, "}")
 }

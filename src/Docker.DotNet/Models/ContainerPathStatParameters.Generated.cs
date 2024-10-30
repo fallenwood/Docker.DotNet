@@ -1,14 +1,13 @@
+namespace Docker.DotNet.Models;
+
 using System.Runtime.Serialization;
 
-namespace Docker.DotNet.Models
+[DataContract]
+public sealed class ContainerPathStatParameters // (main.ContainerPathStatParameters)
 {
-    [DataContract]
-    public class ContainerPathStatParameters // (main.ContainerPathStatParameters)
-    {
-        [QueryStringParameter("path", true)]
-        public string Path { get; set; }
+    [QueryStringParameter("path", true)]
+    public string Path { get; set; }
 
-        [QueryStringParameter("noOverwriteDirNonDir", false, typeof(BoolQueryStringConverter))]
-        public bool? AllowOverwriteDirWithFile { get; set; }
-    }
+    [QueryStringParameter("noOverwriteDirNonDir", false, typeof(BoolQueryStringConverter))]
+    public bool? AllowOverwriteDirWithFile { get; set; }
 }

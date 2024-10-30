@@ -1,11 +1,10 @@
+namespace Docker.DotNet.Models;
+
 using System.Runtime.Serialization;
 
-namespace Docker.DotNet.Models
+[DataContract]
+public sealed class WaitExitError // (container.WaitExitError)
 {
-    [DataContract]
-    public class WaitExitError // (container.WaitExitError)
-    {
-        [DataMember(Name = "Message", EmitDefaultValue = false)]
-        public string Message { get; set; }
-    }
+    [DataMember(Name = "Message", EmitDefaultValue = false)]
+    public string Message { get; set; }
 }

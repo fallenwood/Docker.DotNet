@@ -1,12 +1,11 @@
+namespace Docker.DotNet.Models;
+
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace Docker.DotNet.Models
+[DataContract]
+public sealed class ContainerUpdateResponse // (main.ContainerUpdateResponse)
 {
-    [DataContract]
-    public class ContainerUpdateResponse // (main.ContainerUpdateResponse)
-    {
-        [DataMember(Name = "Warnings", EmitDefaultValue = false)]
-        public IList<string> Warnings { get; set; }
-    }
+    [DataMember(Name = "Warnings", EmitDefaultValue = false)]
+    public IList<string> Warnings { get; set; }
 }

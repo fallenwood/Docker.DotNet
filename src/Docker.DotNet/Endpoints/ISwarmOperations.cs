@@ -93,18 +93,18 @@ namespace Docker.DotNet
 
         #region Services
 
-        /// <summary>
-        /// Create a service.
-        /// </summary>
-        /// <remarks>
-        /// 200 - No error.
-        /// 400 - Bad parameter.
-        /// 403 - Network is not eligible for services.
-        /// 409 - Name conflicts with an existing service.
-        /// 500 - Server error.
-        /// 503 - Node is not part of a swarm.
-        /// </remarks>
-        Task<ServiceCreateResponse> CreateServiceAsync(ServiceCreateParameters parameters, CancellationToken cancellationToken = default(CancellationToken));
+        // /// <summary>
+        // /// Create a service.
+        // /// </summary>
+        // /// <remarks>
+        // /// 200 - No error.
+        // /// 400 - Bad parameter.
+        // /// 403 - Network is not eligible for services.
+        // /// 409 - Name conflicts with an existing service.
+        // /// 500 - Server error.
+        // /// 503 - Node is not part of a swarm.
+        // /// </remarks>
+        // Task<ServiceCreateResponse> CreateServiceAsync(ServiceCreateParameters parameters, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Inspect a service.
@@ -129,19 +129,19 @@ namespace Docker.DotNet
         /// </remarks>
         Task<IEnumerable<SwarmService>> ListServicesAsync(ServicesListParameters parameters = null, CancellationToken cancellationToken = default(CancellationToken));
 
-        /// <summary>
-        /// Update a service.
-        /// </summary>
-        /// <remarks>
-        /// 200 - No error.
-        /// 400 - Bad parameter.
-        /// 404 - No such service.
-        /// 500 - Server error.
-        /// 503 - Node is not part of a swarm.
-        /// </remarks>
-        /// <param name="id">ID or name of service.</param>
-        /// <returns>The service spec.</returns>
-        Task<ServiceUpdateResponse> UpdateServiceAsync(string id, ServiceUpdateParameters parameters, CancellationToken cancellationToken = default(CancellationToken));
+        // /// <summary>
+        // /// Update a service.
+        // /// </summary>
+        // /// <remarks>
+        // /// 200 - No error.
+        // /// 400 - Bad parameter.
+        // /// 404 - No such service.
+        // /// 500 - Server error.
+        // /// 503 - Node is not part of a swarm.
+        // /// </remarks>
+        // /// <param name="id">ID or name of service.</param>
+        // /// <returns>The service spec.</returns>
+        // Task<ServiceUpdateResponse> UpdateServiceAsync(string id, ServiceUpdateParameters parameters, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Delete a service.

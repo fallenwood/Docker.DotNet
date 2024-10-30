@@ -1,11 +1,10 @@
+namespace Docker.DotNet.Models;
+
 using System.Runtime.Serialization;
 
-namespace Docker.DotNet.Models
+[DataContract]
+public sealed class SwarmUnlockResponse // (main.SwarmUnlockResponse)
 {
-    [DataContract]
-    public class SwarmUnlockResponse // (main.SwarmUnlockResponse)
-    {
-        [DataMember(Name = "UnlockKey", EmitDefaultValue = false)]
-        public string UnlockKey { get; set; }
-    }
+    [DataMember(Name = "UnlockKey", EmitDefaultValue = false)]
+    public string UnlockKey { get; set; }
 }

@@ -1,12 +1,11 @@
+namespace Docker.DotNet.Models;
+
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace Docker.DotNet.Models
+[DataContract]
+public sealed class TasksListParameters // (main.TasksListParameters)
 {
-    [DataContract]
-    public class TasksListParameters // (main.TasksListParameters)
-    {
-        [QueryStringParameter("filters", false, typeof(MapQueryStringConverter))]
-        public IDictionary<string, IDictionary<string, bool>> Filters { get; set; }
-    }
+    [QueryStringParameter("filters", false, typeof(MapQueryStringConverter))]
+    public IDictionary<string, IDictionary<string, bool>> Filters { get; set; }
 }

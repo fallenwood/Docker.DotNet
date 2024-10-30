@@ -1,11 +1,10 @@
+namespace Docker.DotNet.Models;
+
 using System.Runtime.Serialization;
 
-namespace Docker.DotNet.Models
+[DataContract]
+public sealed class SpreadOver // (swarm.SpreadOver)
 {
-    [DataContract]
-    public class SpreadOver // (swarm.SpreadOver)
-    {
-        [DataMember(Name = "SpreadDescriptor", EmitDefaultValue = false)]
-        public string SpreadDescriptor { get; set; }
-    }
+    [DataMember(Name = "SpreadDescriptor", EmitDefaultValue = false)]
+    public string SpreadDescriptor { get; set; }
 }
