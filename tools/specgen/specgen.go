@@ -159,10 +159,10 @@ var typesToDisambiguate = map[string]*CSModelType{
 			CSProperty{Name: "Types", Type: CSType{"System.Collections.Generic", "IList<string>", false}},
 		},
 	},
-	typeToKey(reflect.TypeOf(container.StatsResponse{})):  {Name: "ContainerStatsResponse"},
-	typeToKey(reflect.TypeOf(types.Version{})):            {Name: "VersionResponse"},
-	typeToKey(reflect.TypeOf(types.VolumesPruneReport{})): {Name: "VolumesPruneResponse"},
-	typeToKey(reflect.TypeOf(VolumeResponse{})):           {Name: "VolumeResponse"},
+	typeToKey(reflect.TypeOf(container.StatsResponse{})): {Name: "ContainerStatsResponse"},
+	typeToKey(reflect.TypeOf(types.Version{})):           {Name: "VersionResponse"},
+	typeToKey(reflect.TypeOf(volume.PruneReport{})):      {Name: "VolumesPruneResponse"},
+	typeToKey(reflect.TypeOf(VolumeResponse{})):          {Name: "VolumeResponse"},
 }
 
 var dockerTypesToReflect = []reflect.Type{

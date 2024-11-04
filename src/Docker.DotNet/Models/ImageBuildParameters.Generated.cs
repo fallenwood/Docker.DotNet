@@ -2,6 +2,7 @@ namespace Docker.DotNet.Models;
 
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 [DataContract]
 public sealed class ImageBuildParameters // (main.ImageBuildParameters)
@@ -79,5 +80,6 @@ public sealed class ImageBuildParameters // (main.ImageBuildParameters)
     public string Outputs { get; set; }
 
     [DataMember(Name = "AuthConfigs", EmitDefaultValue = false)]
+    [JsonPropertyName("AuthConfigs")]
     public IDictionary<string, AuthConfig> AuthConfigs { get; set; }
 }

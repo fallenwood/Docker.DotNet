@@ -2,6 +2,7 @@ namespace Docker.DotNet.Models;
 
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 [DataContract]
 public sealed class ImagesSearchParameters // (main.ImagesSearchParameters)
@@ -16,5 +17,6 @@ public sealed class ImagesSearchParameters // (main.ImagesSearchParameters)
     public IDictionary<string, IDictionary<string, bool>> Filters { get; set; }
 
     [DataMember(Name = "RegistryAuth", EmitDefaultValue = false)]
+    [JsonPropertyName("RegistryAuth")]
     public AuthConfig RegistryAuth { get; set; }
 }
