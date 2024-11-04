@@ -32,8 +32,7 @@ internal class PluginOperations : IPluginOperations
     {
         IQueryString queryParameters = parameters == null ? null : new QueryString<PluginListParameters>(parameters);
         var response = await this._client.MakeRequestAsync(this._client.NoErrorHandlers, HttpMethod.Get, "plugins", queryParameters, cancellationToken).ConfigureAwait(false);
-        //return this._client.JsonSerializer.DeserializeObject<Plugin[]>(response.Body);
-        return JsonSerializer.Deserialize(response.Body, this._client.JsonSerializer.Plugin);
+        return JsonSerializer.Deserialize(response.Body, this._client.JsonSerializer.PluginArray);
     }
 
     public async Task<IList<PluginPrivilege>> GetPluginPrivilegesAsync(PluginGetPrivilegeParameters parameters, CancellationToken cancellationToken = default(CancellationToken))
@@ -45,8 +44,7 @@ internal class PluginOperations : IPluginOperations
 
         var query = new QueryString<PluginGetPrivilegeParameters>(parameters);
         var response = await this._client.MakeRequestAsync(this._client.NoErrorHandlers, HttpMethod.Get, "plugins/privileges", query, cancellationToken).ConfigureAwait(false);
-        //return this._client.JsonSerializer.DeserializeObject<PluginPrivilege[]>(response.Body);
-        return JsonSerializer.Deserialize(response.Body, this._client.JsonSerializer.Plugin);
+        return JsonSerializer.Deserialize(response.Body, this._client.JsonSerializer.PluginPrivilegeArray);
     }
 
     public Task InstallPluginAsync(PluginInstallParameters parameters, IProgress<JSONMessage> progress, CancellationToken cancellationToken = default(CancellationToken))
@@ -61,7 +59,7 @@ internal class PluginOperations : IPluginOperations
             throw new ArgumentNullException(nameof(parameters.Privileges));
         }
 
-        var data = new JsonRequestContent<IList<PluginPrivilege>>(parameters.Privileges, this._client.JsonSerializer);
+        var data = new JsonRequestContent<IList<PluginPrivilege>>(parameters.Privileges, this._client.JsonSerializer.IListPluginPrivilege);
 
         IQueryString queryParameters = new QueryString<PluginInstallParameters>(parameters);
         return StreamUtil.MonitorStreamForMessagesAsync(
@@ -69,7 +67,7 @@ internal class PluginOperations : IPluginOperations
             this._client,
             cancellationToken,
             progress,
-            this._client.JsonSerializer.PluginPrivilege);
+            this._client.JsonSerializer.JSONMessage);
     }
 
     public async Task<Plugin> InspectPluginAsync(string name, CancellationToken cancellationToken)
@@ -134,7 +132,7 @@ internal class PluginOperations : IPluginOperations
         }
 
         var query = new QueryString<PluginUpgradeParameters>(parameters);
-        var data = new JsonRequestContent<IList<PluginPrivilege>>(parameters.Privileges, this._client.JsonSerializer);
+        var data = new JsonRequestContent<IList<PluginPrivilege>>(parameters.Privileges, this._client.JsonSerializer.IListPluginPrivilege);
         return this._client.MakeRequestAsync(new[] { NoSuchPluginHandler }, HttpMethod.Post, $"plugins/{name}/upgrade", query, data, cancellationToken);
     }
 
@@ -182,7 +180,7 @@ internal class PluginOperations : IPluginOperations
             throw new ArgumentNullException(nameof(parameters.Args));
         }
 
-        var body = new JsonRequestContent<IList<string>>(parameters.Args, this._client.JsonSerializer);
+        var body = new JsonRequestContent<IList<string>>(parameters.Args, this._client.JsonSerializer.IListString);
         return this._client.MakeRequestAsync(new[] { NoSuchPluginHandler }, HttpMethod.Post, $"plugins/{name}/set", null, body, cancellationToken);
     }
 }

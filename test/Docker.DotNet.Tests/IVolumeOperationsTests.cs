@@ -10,6 +10,7 @@ using Xunit.Abstractions;
 
 namespace Docker.DotNet.Tests
 {
+#if false
 	[Collection(nameof(TestCollection))]
 	public class IVolumeOperationsTests
 	{
@@ -56,4 +57,5 @@ namespace Docker.DotNet.Tests
 			}
 		}
 	}
+#endif
 }

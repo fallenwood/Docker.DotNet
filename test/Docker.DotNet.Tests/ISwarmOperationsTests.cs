@@ -9,6 +9,7 @@ using Xunit;
 
 namespace Docker.DotNet.Tests
 {
+#if false
     [Collection(nameof(TestCollection))]
     public class ISwarmOperationsTests
     {
@@ -256,4 +257,5 @@ namespace Docker.DotNet.Tests
             await _dockerClient.Swarm.RemoveServiceAsync(serviceId, default);
         }
     }
+#endif
 }

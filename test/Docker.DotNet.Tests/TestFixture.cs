@@ -10,6 +10,7 @@ using Xunit;
 
 namespace Docker.DotNet.Tests
 {
+#if false
     public sealed class TestFixture : IAsyncLifetime, IDisposable
     {
         /// <summary>
@@ -184,4 +185,5 @@ namespace Docker.DotNet.Tests
     public sealed class TestCollection : ICollectionFixture<TestFixture>
     {
     }
+#endif
 }

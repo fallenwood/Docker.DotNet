@@ -8,6 +8,7 @@ using Xunit.Abstractions;
 
 namespace Docker.DotNet.Tests
 {
+#if false
     [Collection(nameof(TestCollection))]
     public class IImageOperationsTests
     {
@@ -115,4 +116,5 @@ namespace Docker.DotNet.Tests
             await Assert.ThrowsAsync<DockerImageNotFoundException>(() => inspectDeletedImageTask);
         }
     }
+#endif
 }

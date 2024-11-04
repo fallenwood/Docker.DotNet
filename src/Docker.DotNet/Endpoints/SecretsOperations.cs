@@ -20,7 +20,7 @@ internal class SecretsOperations : ISecretsOperations
     async Task<IList<Secret>> ISecretsOperations.ListAsync(CancellationToken cancellationToken)
     {
         var response = await this._client.MakeRequestAsync(this._client.NoErrorHandlers, HttpMethod.Get, "secrets", cancellationToken).ConfigureAwait(false);
-        return JsonSerializer.Deserialize(response.Body, this._client.JsonSerializer.SecretCreateResponse);
+        return JsonSerializer.Deserialize(response.Body, this._client.JsonSerializer.IListSecret);
     }
 
     async Task<SecretCreateResponse> ISecretsOperations.CreateAsync(SecretSpec body, CancellationToken cancellationToken)

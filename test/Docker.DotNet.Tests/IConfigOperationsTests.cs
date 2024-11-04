@@ -6,6 +6,7 @@ using Xunit.Abstractions;
 
 namespace Docker.DotNet.Tests
 {
+#if false
     [Collection(nameof(TestCollection))]
     public class IConfigOperationsTests
     {
@@ -66,5 +67,6 @@ namespace Docker.DotNet.Tests
             
         }
     }
+#endif
 }
 

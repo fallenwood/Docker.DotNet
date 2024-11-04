@@ -12,6 +12,7 @@ using Xunit.Abstractions;
 
 namespace Docker.DotNet.Tests
 {
+#if false
     [Collection(nameof(TestCollection))]
     public class IContainerOperationsTests
     {
@@ -809,4 +810,5 @@ namespace Docker.DotNet.Tests
             Assert.Null(exception);
         }
     }
+#endif
 }

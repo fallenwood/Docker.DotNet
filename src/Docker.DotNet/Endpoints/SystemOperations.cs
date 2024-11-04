@@ -61,6 +61,7 @@ internal class SystemOperations : ISystemOperations
             MonitorEventsAsync(parameters, cancellationToken),
             this._client,
             cancellationToken,
-            progress);
+            progress,
+            this._client.JsonSerializer.Message);
     }
 }

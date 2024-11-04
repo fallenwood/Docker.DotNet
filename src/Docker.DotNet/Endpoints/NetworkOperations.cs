@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Models;
@@ -29,7 +30,7 @@ internal class NetworkOperations : INetworkOperations
     {
         var queryParameters = parameters == null ? null : new QueryString<NetworksListParameters>(parameters);
         var response = await this._client.MakeRequestAsync(this._client.NoErrorHandlers, HttpMethod.Get, "networks", queryParameters, cancellationToken).ConfigureAwait(false);
-        return this._client.JsonSerializer.DeserializeObject<NetworkResponse[]>(response.Body);
+        return JsonSerializer.Deserialize(response.Body, this._client.JsonSerializer.NetworkResponseArray);
     }
 
     async Task<NetworkResponse> INetworkOperations.InspectNetworkAsync(string id, CancellationToken cancellationToken)
@@ -40,7 +41,7 @@ internal class NetworkOperations : INetworkOperations
         }
 
         var response = await this._client.MakeRequestAsync(new[] { NoSuchNetworkHandler }, HttpMethod.Get, $"networks/{id}", cancellationToken).ConfigureAwait(false);
-        return this._client.JsonSerializer.DeserializeObject<NetworkResponse>(response.Body);
+        return JsonSerializer.Deserialize(response.Body, this._client.JsonSerializer.NetworkResponse);
     }
 
     Task INetworkOperations.DeleteNetworkAsync(string id, CancellationToken cancellationToken)
@@ -60,9 +61,9 @@ internal class NetworkOperations : INetworkOperations
             throw new ArgumentNullException(nameof(parameters));
         }
 
-        var data = new JsonRequestContent<NetworksCreateParameters>(parameters, this._client.JsonSerializer);
+        var data = new JsonRequestContent<NetworksCreateParameters>(parameters, this._client.JsonSerializer.NetworksCreateParameters);
         var response = await this._client.MakeRequestAsync(this._client.NoErrorHandlers, HttpMethod.Post, "networks/create", null, data, cancellationToken).ConfigureAwait(false);
-        return this._client.JsonSerializer.DeserializeObject<NetworksCreateResponse>(response.Body);
+        return JsonSerializer.Deserialize(response.Body, this._client.JsonSerializer.NetworksCreateResponse);
     }
 
     Task INetworkOperations.ConnectNetworkAsync(string id, NetworkConnectParameters parameters, CancellationToken cancellationToken)
@@ -77,7 +78,7 @@ internal class NetworkOperations : INetworkOperations
             throw new ArgumentNullException(nameof(parameters));
         }
 
-        var data = new JsonRequestContent<NetworkConnectParameters>(parameters, this._client.JsonSerializer);
+        var data = new JsonRequestContent<NetworkConnectParameters>(parameters, this._client.JsonSerializer.NetworkConnectParameters);
         return this._client.MakeRequestAsync(new[] { NoSuchNetworkHandler }, HttpMethod.Post, $"networks/{id}/connect", null, data, cancellationToken);
     }
 
@@ -93,7 +94,7 @@ internal class NetworkOperations : INetworkOperations
             throw new ArgumentNullException(nameof(parameters));
         }
 
-        var data = new JsonRequestContent<NetworkDisconnectParameters>(parameters, this._client.JsonSerializer);
+        var data = new JsonRequestContent<NetworkDisconnectParameters>(parameters, this._client.JsonSerializer.NetworkDisconnectParameters);
         return this._client.MakeRequestAsync(new[] { NoSuchNetworkHandler }, HttpMethod.Post, $"networks/{id}/disconnect", null, data, cancellationToken);
     }
 
@@ -106,6 +107,6 @@ internal class NetworkOperations : INetworkOperations
     {
         var queryParameters = parameters == null ? null : new QueryString<NetworksDeleteUnusedParameters>(parameters);
         var response = await this._client.MakeRequestAsync(null, HttpMethod.Post, "networks/prune", queryParameters, cancellationToken);
-        return this._client.JsonSerializer.DeserializeObject<NetworksPruneResponse>(response.Body);
+        return JsonSerializer.Deserialize(response.Body, this._client.JsonSerializer.NetworksPruneResponse);
     }
 }
